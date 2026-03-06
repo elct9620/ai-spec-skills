@@ -61,6 +61,19 @@ Key questions:
 
 Flag: missing layers, vague language, implementation details that should be open, design decisions that should be specified.
 
+### Bloat Detection
+
+During writing or reviewing, proactively check whether the specification is growing beyond a manageable size. Do not wait for the user to ask about splitting.
+
+| Signal | Threshold | Action |
+|--------|-----------|--------|
+| Total spec length | Exceeds ~120 lines | Suggest switching to table-of-contents mode |
+| Number of features | More than 4 independent features | Suggest extracting feature detail documents |
+| Single section length | Any section exceeds ~30 lines | Suggest extracting that section |
+| Behavior tables dominate | More than half the spec is behavior tables | Suggest extracting behaviors to detail documents |
+
+When a threshold is reached, inform the user that the spec is growing large and recommend splitting using the Splitting Content rules below. Present the recommendation with the specific signals detected, then proceed with splitting if the user agrees.
+
 ### Splitting Content
 
 **Default: Keep everything in SPEC.md.**

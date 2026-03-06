@@ -92,6 +92,22 @@ To select skills for writing or improving specifications, consider the following
     <return>completed phase with rubric verification result</return>
 </function>
 
+<function name="check-bloat">
+    <description>Detect whether the specification has grown beyond manageable size and suggest splitting if needed. This check runs automatically — do not wait for the user to ask.</description>
+    <parameter name="spec" type="string" description="The written specification content." required="true"/>
+    <step>1. count total lines, number of independent features, and longest section length</step>
+    <step>2. evaluate against Bloat Detection thresholds from spec-methodology</step>
+    <condition if="any threshold exceeded">
+        <step>3. inform the user which signals were detected and recommend splitting</step>
+        <step>4. apply the Splitting Content decision table (Decides/Expands/External) to determine what stays and what extracts</step>
+        <step>5. present the splitting plan and proceed if user agrees</step>
+    </condition>
+    <condition if="no threshold exceeded">
+        <step>6. continue without splitting</step>
+    </condition>
+    <return>bloat check result and any splitting actions taken</return>
+</function>
+
 <function name="quality-report">
     <description>Generate a final quality report with full rubric scoring.</description>
     <parameter name="phase-results" type="list" description="The results from each completed phase." required="true"/>
@@ -120,8 +136,9 @@ To select skills for writing or improving specifications, consider the following
         <step>10. <execute name="write-phase" phase="$phase" plan="$plan"/></step>
         <step>11. confirm rubric criteria for the phase pass before proceeding</step>
     </loop>
-    <step>12. <execute name="quality-report" phase-results="$phase-results"/></step>
-    <step>13. ask user if they want to commit the changes</step>
+    <step>12. <execute name="check-bloat" spec="$spec"/></step>
+    <step>13. <execute name="quality-report" phase-results="$phase-results"/></step>
+    <step>14. ask user if they want to commit the changes</step>
     <return>specification quality report</return>
 </procedure>
 
