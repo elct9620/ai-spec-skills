@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.6.0...spec-v0.7.0) (2026-03-06)
+
+
+### Features
+
+* **spec-review:** add cross-document structure check for linked detail files ([a983072](https://github.com/elct9620/claude-spec-plugin/commit/a9830727c1a5ba27fd96fc0354ea6029062e9a6b))
+* **spec-write:** add automatic bloat detection for large specifications ([5dea012](https://github.com/elct9620/claude-spec-plugin/commit/5dea012bd854c6eb1bb33a6879029a5d8fdba9a5))
+
 ## [0.6.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.5.1...spec-v0.6.0) (2026-02-11)
 
 
