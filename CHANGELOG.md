@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.7.0...spec-v0.8.0) (2026-04-10)
+
+
+### Features
+
+* **spec-review:** add scope-aware review with severity classification ([be061e1](https://github.com/elct9620/ai-spec-skills/commit/be061e144864a1ea818b3edd89338d096e0960cb))
+
 ## [0.7.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.6.0...spec-v0.7.0) (2026-03-06)
 
 
