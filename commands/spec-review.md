@@ -30,7 +30,18 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>3. identify the structure and sections present</step>
     <step>4. scan SPEC.md for document links matching pattern [text](docs/...) or relative .md paths</step>
     <step>5. for each linked document: record the link and attempt to read the file if it exists</step>
-    <return>parsed specification content, structure overview, and linked documents map (path → content or "missing")</return>
+    <step>6. identify declared scope: what features and boundaries the spec claims to cover, and any explicit non-goals</step>
+    <return>parsed specification content, structure overview, declared scope summary, and linked documents map (path → content or "missing")</return>
+</function>
+
+<function name="determine-target">
+    <description>Determine the user's target quality level to scope the review appropriately.</description>
+    <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
+    <step>1. check if the user specified a target quality level</step>
+    <step>2. if not specified, infer from project context (team size, spec maturity, stated goals)</step>
+    <step>3. default to Minimal if context is insufficient</step>
+    <step>4. confirm: this review will evaluate against [level] criteria</step>
+    <return>target quality level (Minimal/Usable/Complete) and which rubric items are in scope</return>
 </function>
 
 <function name="active-skills">
@@ -47,12 +58,12 @@ To select skills for reviewing specifications, consider the following rubric:
 </function>
 
 <function name="assess-layers">
-    <description>Evaluate the specification against the three-layer framework (Intent, Design, Consistency).</description>
+    <description>Evaluate the specification against the three-layer framework (Intent, Design, Consistency), scoped to declared content.</description>
     <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
     <step>1. assess Intent layer: Can I explain why this system exists and for whom?</step>
-    <step>2. assess Design layer: Can I predict behavior for any user action?</step>
-    <step>3. assess Consistency layer: Will similar situations be handled similarly?</step>
-    <step>4. note missing layers, weak areas, and strengths</step>
+    <step>2. assess Design layer: Can I predict behavior for any documented user action?</step>
+    <step>3. assess Consistency layer: Will similar documented situations be handled similarly?</step>
+    <step>4. note missing layers, weak areas, and strengths within declared scope</step>
     <return>three-layer assessment with findings per layer</return>
 </function>
 
@@ -72,7 +83,7 @@ To select skills for reviewing specifications, consider the following rubric:
     <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
     <step>1. scan for implementation details that should be left open (over-specification)</step>
     <step>2. scan for vague terms like "appropriate", "reasonable" (under-specification)</step>
-    <step>3. scan for undefined behavior for reachable states</step>
+    <step>3. scan for undefined behavior for reachable states within documented features</step>
     <step>4. apply the test: "If implemented differently, would users notice or would modules conflict?"</step>
     <return>balance assessment with specific findings</return>
 </function>
@@ -90,45 +101,48 @@ To select skills for reviewing specifications, consider the following rubric:
 </function>
 
 <function name="identify-problems">
-    <description>Check against the Common Problems table to find specific issues.</description>
+    <description>Check against the Common Problems table, classifying each finding by severity.</description>
     <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
-    <step>1. check for Missing intent (technical tasks instead of user value)</step>
-    <step>2. check for Undefined scenarios (incomplete state coverage)</step>
-    <step>3. check for Over-specification (implementation details included)</step>
-    <step>4. check for Inconsistent patterns and terminology</step>
-    <step>5. check for Vague language, Hidden assumptions, Explanatory notes, Phase markers</step>
-    <return>list of identified problems with symptoms, causes, and suggested fixes</return>
+    <parameter name="declared-scope" type="string" description="The spec's declared scope from read-spec." required="true"/>
+    <parameter name="target-level" type="string" description="Target quality level from determine-target." required="true"/>
+    <step>1. check for Must Fix problems within declared scope: Missing intent, Over-specification, Vague language, Explanatory notes, Phase markers</step>
+    <step>2. check for Suggested Fix problems: Undefined scenarios that would cause crash/data-loss/security-breach for documented features, Hidden assumptions</step>
+    <step>3. check for Note-level items only if target level requires them: Inconsistent patterns, Inconsistent terminology, Undefined scenarios (detail-level)</step>
+    <step>4. for each finding: cite the specific text in the spec that evidences the problem</step>
+    <step>5. do NOT flag missing content that is outside the spec's declared scope</step>
+    <return>list of identified problems classified by severity (Must Fix / Suggested Fix / Note) with evidence citations</return>
 </function>
 
 <function name="generate-report">
-    <description>Generate the final review report with scores, problems, and improvement suggestions.</description>
+    <description>Generate the final review report organized by severity, respecting declared scope.</description>
     <parameter name="layer-assessment" type="string" description="Three-layer assessment results." required="true"/>
     <parameter name="rubric-scores" type="string" description="Rubric scorecard results." required="true"/>
     <parameter name="balance-check" type="string" description="Balance assessment results." required="true"/>
     <parameter name="structure-check" type="string" description="Structure integrity check results." required="true"/>
-    <parameter name="problems" type="list" description="Identified problems list." required="true"/>
-    <step>1. compile rubric scores into a summary table</step>
-    <step>2. prioritize problems by severity (Required criteria failures first)</step>
-    <step>3. generate actionable improvement suggestions for each problem</step>
-    <step>4. include structure findings: broken links and link-only extractions as high-priority issues</step>
-    <step>5. for each activated skill, verify its Completion Rubric (Before/During/After)</step>
-    <step>6. determine overall specification status (usable, needs work, or complete)</step>
-    <return>comprehensive review report with scores, skill completion verification, problems, and prioritized improvements</return>
+    <parameter name="problems" type="list" description="Identified problems classified by severity." required="true"/>
+    <parameter name="target-level" type="string" description="Target quality level." required="true"/>
+    <step>1. compile rubric scores into a summary table, marking which items are required for the target level</step>
+    <step>2. report Must Fix items: defects that must be resolved (Required rubric N, anti-patterns, vague language within scope)</step>
+    <step>3. report Suggested Fix items: stability/security gaps in documented features</step>
+    <step>4. report Notes: non-required items that would improve quality if user targets a higher level — frame as "To reach [level]: ..."</step>
+    <step>5. include structure findings: broken links and link-only extractions as Must Fix</step>
+    <step>6. determine current quality level and whether it meets the target</step>
+    <step>7. do NOT suggest adding new features, expanding scope, or ask "do you want to add X?"</step>
+    <return>review report organized by severity (Must Fix → Suggested Fix → Notes) with current quality level and target assessment</return>
 </function>
 
 <procedure name="main">
     <parameter name="path" type="string" description="Path to the specification file to review." required="false"/>
     <step>1. <execute name="read-spec" path="$path"/></step>
-    <step>2. use ask question tool to clarify review focus with the user</step>
+    <step>2. <execute name="determine-target" spec="$spec"/></step>
     <step>3. <execute name="active-skills" context="$spec"/></step>
     <step>4. <execute name="assess-layers" spec="$spec"/></step>
     <step>5. <execute name="apply-rubric" spec="$spec"/></step>
     <step>6. <execute name="check-balance" spec="$spec"/></step>
     <step>7. <execute name="check-structure" spec="$spec" linked-docs="$linked-docs"/></step>
-    <step>8. <execute name="identify-problems" spec="$spec"/></step>
-    <step>9. <execute name="generate-report" layer-assessment="$layer-assessment" rubric-scores="$rubric-scores" balance-check="$balance-check" structure-check="$structure-check" problems="$problems"/></step>
-    <step>10. ask user if they want to fix issues (can continue with /spec:spec-write)</step>
-    <return>specification review report</return>
+    <step>8. <execute name="identify-problems" spec="$spec" declared-scope="$declared-scope" target-level="$target-level"/></step>
+    <step>9. <execute name="generate-report" layer-assessment="$layer-assessment" rubric-scores="$rubric-scores" balance-check="$balance-check" structure-check="$structure-check" problems="$problems" target-level="$target-level"/></step>
+    <return>specification review report with severity-classified findings</return>
 </procedure>
 
 ## Task

@@ -31,6 +31,16 @@ A specification describes the **target state**—what the system looks like when
 | Design decisions (what to build) | Implementation choices (how to build) |
 | Declarative statements and structured formats | Prose narrative explanations |
 
+### What a Specification Review IS / IS NOT
+
+| Review IS | Review is NOT |
+|-----------|---------------|
+| Evaluating quality of declared scope | Suggesting new scope to add |
+| Checking what's written is correct and unambiguous | Checking what's not written |
+| Identifying defects in existing content | Proposing "good to have" additions |
+| Helping narrow unclear boundaries | Expanding boundaries to cover more |
+| Assessing against the user's target quality level | Pushing all specs toward Complete level |
+
 **Specify vs Leave Open** (for writing decisions; see spec-quality Balance Check for review verification):
 
 | Question | Specify | Leave to Implementer |

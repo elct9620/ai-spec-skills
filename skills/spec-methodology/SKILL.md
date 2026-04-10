@@ -48,18 +48,33 @@ Apply to both writing new specifications and improving existing ones. When impro
 
 ### When Reviewing
 
-Assess against three layers:
+Assess against three layers, scoped to what the spec declares:
 
 1. **Intent**: Can I explain why this system exists and for whom?
-2. **Design**: Can I predict behavior for any user action?
-3. **Consistency**: Will similar situations be handled similarly?
+2. **Design**: Can I predict behavior for any documented user action?
+3. **Consistency**: Will similar documented situations be handled similarly?
 
 Key questions:
-- Is this complete enough to implement without guessing?
-- Are all design decisions explicit?
-- Will two implementers produce compatible results?
+- Is the documented scope complete enough to implement without guessing?
+- Are all design decisions within declared scope explicit?
+- Will two implementers produce compatible results for documented behaviors?
 
 Flag: missing layers, vague language, implementation details that should be open, design decisions that should be specified.
+
+**Do not flag:** features the spec doesn't claim to cover, "nice to have" additions, scope the user hasn't asked for.
+
+### Scope Narrowing
+
+When boundaries are unclear or contested during writing or review, help the user **narrow scope** rather than expand it.
+
+| Situation | Do | Don't |
+|-----------|-----|-------|
+| Unclear boundary (e.g., "what happens at MAX_STEP?") | Ask user to pick a specific value or behavior, then document it | Suggest covering all possible values |
+| Feature has many edge cases | Ask which cases matter for the target state, defer the rest to Non-goals | List all edge cases and suggest handling each |
+| User unsure about a design choice | Present 2-3 options with tradeoffs, ask user to choose one | Add all options as "configurable" |
+| Spec growing large | Suggest deferring non-core features to separate specs | Add more sections to cover everything |
+
+**Principle:** A smaller, well-defined spec is more valuable than a comprehensive but vague one. Help the user decide what is NOT in scope as quickly as possible.
 
 ### Bloat Detection
 
