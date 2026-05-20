@@ -105,7 +105,7 @@ To select skills for reviewing specifications, consider the following rubric:
     <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
     <parameter name="declared-scope" type="string" description="The spec's declared scope from read-spec." required="true"/>
     <parameter name="target-level" type="string" description="Target quality level from determine-target." required="true"/>
-    <step>1. check for Must Fix problems within declared scope: Missing intent, Over-specification, Vague language, Explanatory notes, Phase markers</step>
+    <step>1. check for Must Fix problems within declared scope: Missing intent, Over-specification, Vague language, Explanatory notes, Phase/pending markers (Future/v2/TBD/TODO/暫定), Thinking traces (revision marks, "considered X chose Y", "originally A changed to B", inline rationale)</step>
     <step>2. check for Suggested Fix problems: Undefined scenarios that would cause crash/data-loss/security-breach for documented features, Hidden assumptions</step>
     <step>3. check for Note-level items only if target level requires them: Inconsistent patterns, Inconsistent terminology, Undefined scenarios (detail-level)</step>
     <step>4. for each finding: cite the specific text in the spec that evidences the problem</step>

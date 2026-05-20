@@ -72,23 +72,25 @@ To select skills for writing or improving specifications, consider the following
     <description>Execute a single phase of the progressive approach, writing or improving the specification.</description>
     <parameter name="phase" type="string" description="The phase to execute (Intent, Scope, Behavior, or Refinement)." required="true"/>
     <parameter name="plan" type="string" description="The writing plan for this phase." required="true"/>
+    <step>1. if improving an existing spec, scan this phase's existing content for paragraphs whose intent has drifted and rewrite them in place; do not append clarifications, Notes, or revision marks (see spec-methodology Rewrite Over Append)</step>
+    <step>2. when writing or editing any statement, ensure it reads as a present-tense decided fact — no TBD/TODO/暫定, no "originally X changed to Y", no "considered A chose B" (see spec-principles Anti-Patterns: Thinking traces, Phase/pending markers)</step>
     <condition if="$phase == 'Intent'">
-        <step>1. write Purpose, Users, and Impacts sections</step>
-        <step>2. verify Purpose and Users are stated</step>
+        <step>3. write Purpose, Users, and Impacts sections</step>
+        <step>4. verify Purpose and Users are stated</step>
     </condition>
     <condition if="$phase == 'Scope'">
-        <step>3. write Feature list and User journeys (Context → Action → Outcome)</step>
-        <step>4. verify feature list is complete</step>
+        <step>5. write Feature list and User journeys (Context → Action → Outcome)</step>
+        <step>6. verify feature list is complete</step>
     </condition>
     <condition if="$phase == 'Behavior'">
-        <step>5. write Feature behaviors and Error scenarios</step>
-        <step>6. verify Behaviors and Errors are defined and spec is implementable</step>
+        <step>7. write Feature behaviors and Error scenarios</step>
+        <step>8. verify Behaviors and Errors are defined and spec is implementable</step>
     </condition>
     <condition if="$phase == 'Refinement'">
-        <step>7. write Patterns, Contracts, and Terminology</step>
-        <step>8. verify Contracts, Terminology, and Patterns as needed</step>
+        <step>9. write Patterns, Contracts, and Terminology</step>
+        <step>10. verify Contracts, Terminology, and Patterns as needed</step>
     </condition>
-    <step>9. verify Completion Rubric of each activated skill for this phase</step>
+    <step>11. verify Completion Rubric of each activated skill for this phase</step>
     <return>completed phase with rubric verification result</return>
 </function>
 

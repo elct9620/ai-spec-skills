@@ -46,6 +46,22 @@ Apply to both writing new specifications and improving existing ones. When impro
 | Behavior → Refinement | Behaviors and Errors defined, implementable; all features covered | Undefined scenarios found; implementer has questions |
 | Refinement → Done | Target quality level met; Balance Check passes | Consistency gaps; terminology conflicts |
 
+### Rewrite Over Append
+
+When improving an existing spec, **rewrite the original paragraph** rather than append clarifications, Notes, or counter-statements. The spec is a single source of truth: accreting content over the original creates contradictions, doubles reading load, and leaves thinking traces (see spec-principles Anti-Patterns: Thinking traces, Explanatory notes).
+
+| Situation | Do | Don't |
+|-----------|-----|-------|
+| Existing statement no longer fits intent | Rewrite that statement to express the new target state | Add a "However..." paragraph below |
+| Want to clarify a section | Edit the original until it reads correctly without explanation | Add a `Note:` block |
+| Decision changed | Replace the old text with the new text | Write "原本是 X，改為 Y" |
+| Found a counter-example | Modify the rule to encompass it | Append an "exceptions" list |
+| Section feels almost right | Identify the misfit sentence and rewrite it | Add a new paragraph next to it |
+
+**Test:** After editing, would a fresh reader notice this section was revised? If yes, you accreted instead of rewrote.
+
+**When append is legitimate:** Adding genuinely new scope (a new feature, a new error scenario). The addition must still read as a present-tense decided fact, not as a revision of a prior version.
+
 ### When Reviewing
 
 Assess against three layers, scoped to what the spec declares:
@@ -61,7 +77,7 @@ Key questions:
 
 Flag: missing layers, vague language, implementation details that should be open, design decisions that should be specified.
 
-**Do not flag:** features the spec doesn't claim to cover, "nice to have" additions, scope the user hasn't asked for.
+**Stay within declared scope** — do not flag missing features outside scope. See spec-quality Review Scope Principle for severity classification.
 
 ### Scope Narrowing
 

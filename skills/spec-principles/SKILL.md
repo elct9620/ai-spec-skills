@@ -79,8 +79,9 @@ Complete specifications address three layers:
 | Anti-Pattern | Symptom | Why It Fails | Remedy |
 |-------------|---------|-------------|--------|
 | Explanatory notes | `Note:` appears in spec | If clarification is needed, the spec itself is unclear | Rewrite the statement directly |
-| Phase markers | `(Future)`, `(v2)` in spec | Spec describes target state, not phases | Remove or split into separate spec |
+| Phase / pending markers | `(Future)`, `(v2)`, `(暫定)`, `TBD`, `TODO` in spec body | Spec describes a decided target state; pending marks leave doubt about whether decisions are final | Decide now and write the state; for genuinely undecided items use Handling Uncertainty in spec-methodology, not inline markers |
 | Optional markers | `(Optional)` in spec | Either required for target state or not | Move to Non-goals or make it required |
+| Thinking traces | "Originally X, changed to Y"; "Considered A, chose B"; inline rationale ("because we chose..."); revision notes | Spec is the current target state, not a record of the journey or deliberation; rationale and history belong in commit log or ADR | Rewrite as the current decided state; remove the trace |
 | Over-specification | Algorithm details, framework choices | Constrains implementer without design benefit | Replace with observable behavior |
 | Prose narrative | "First we do X, then Y happens" | Mixes process with target state | Use declarative statements or structured formats (Context → Action → Outcome) |
 | Vague language | "Handle appropriately", "reasonable time" | Different implementers interpret differently | Use specific values or measurable criteria |

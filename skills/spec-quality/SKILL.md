@@ -65,12 +65,9 @@ Score based on the spec's **declared scope** — what the spec claims to cover. 
 | 10 | Similar situations within the spec reference shared patterns or conventions | Ad-hoc solutions for similar problems in different sections |
 | 11 | Two implementers would produce compatible results for all documented behaviors | Interpretation would vary for documented scope |
 
-**Passing Criteria:**
-- Any Required N → Must address before implementation.
-- All Required Y → Specification meets **Minimal** level. Usable for small teams.
-- All Required Y + #3,4 Y → Specification meets **Usable** level. Stop unless improving quality.
-- All items Y → Specification meets **Complete** level. Stop.
-- Non-required N → Report as upgrade path. Only address if user targets a higher quality level.
+**Scoring rules:**
+- Any Required N → must address before implementation
+- Non-required N → report as upgrade path only if user targets a higher level
 
 ### Quality Level Classification
 
@@ -124,7 +121,8 @@ Review evaluates the quality of what the spec **declares**, not what it **could*
 | Vague language | Ambiguous interpretation within documented scope | Must Fix | Use specific values or criteria |
 | Hidden assumptions | Works only in specific context | Suggested Fix | Make all assumptions explicit |
 | Explanatory notes | "Note: because..." appears | Must Fix | Rewrite as direct statement |
-| Phase markers | "(Future)", "(v2)" in spec | Must Fix | Remove; spec describes target state |
+| Phase / pending markers | "(Future)", "(v2)", TBD, TODO, 暫定, (待討論) in spec body | Must Fix | Decide now; for undecided items use Handling Uncertainty section, not inline markers |
+| Thinking traces | "原本是 X，調整為 Y"; "Considered A, chose B"; inline rationale ("because we chose..."); revision notes | Must Fix | Rewrite as current state; move history/rationale to commit log or ADR |
 
 ## Completion Rubric
 
