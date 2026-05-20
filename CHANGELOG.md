@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.8.0...spec-v0.9.0) (2026-05-20)
+
+
+### Features
+
+* **spec:** enforce single source of truth via Thinking traces ([17e3330](https://github.com/elct9620/ai-spec-skills/commit/17e33302e5edb6943f62fa693ef6f7fe8211c370))
+
 ## [0.8.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.7.0...spec-v0.8.0) (2026-04-10)
 
 
