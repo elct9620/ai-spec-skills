@@ -88,7 +88,7 @@ Score based on the spec's **declared scope** — what the spec claims to cover. 
 
 **Test:** "If implemented differently, would users notice or would modules conflict?"
 
-**Warning signs of over-specification:** internal implementation details, algorithm choices (unless user-visible or cross-implementer consistency required)
+**Warning signs of over-specification:** internal implementation details, algorithm choices, or a named technology—*unless* the choice is user-visible, required for cross-implementer consistency, or carries a binding constraint (security, compliance, interop). A technology named to satisfy a property (e.g. "use bcrypt" for password hashing) should be rewritten as the property ("adaptive hashing, work factor ≥ N") unless that specific technology is itself mandated. See spec-principles Technology Choices for the discriminator test.
 
 **Warning signs of under-specification:** vague terms ("appropriate", "reasonable"), undefined behavior for reachable states within documented features
 
@@ -115,7 +115,7 @@ Review evaluates the quality of what the spec **declares**, not what it **could*
 | Missing intent | Technical tasks instead of user value | Must Fix (Required #1,2) | Add intent layer |
 | Undefined scenarios (stability) | Documented feature lacks error handling; failure would crash or corrupt | Suggested Fix | Add error scenarios for documented features |
 | Undefined scenarios (detail) | Could add more edge cases but system functions without them | Note | Mention only if user targets higher quality |
-| Over-specification | Implementer constrained unnecessarily | Must Fix | Keep only observable behaviors |
+| Over-specification | Implementer constrained unnecessarily | Must Fix | Keep only observable behaviors; if a technology is named, confirm it carries a binding constraint, else replace with the property it must satisfy |
 | Inconsistent patterns | Similar problems solved differently | Note | Extract and reference patterns |
 | Inconsistent terminology | Same concept has multiple names | Note | Define key terms, use consistently |
 | Vague language | Ambiguous interpretation within documented scope | Must Fix | Use specific values or criteria |

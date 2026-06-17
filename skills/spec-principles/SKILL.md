@@ -64,6 +64,25 @@ A specification describes the **target state**—what the system looks like when
 - Leave internal implementation choices to implementers unless cross-implementer consistency requires shared conventions
 - If an implementer must guess a design decision, the specification is incomplete
 
+### Technology Choices
+
+Naming a specific technology, library, or framework is **not automatically over-specification**. The discriminator is whether the choice carries a binding constraint the target state depends on—not whether a technology name appears.
+
+| Category | Example | Treatment | How to write it |
+|----------|---------|-----------|-----------------|
+| Incidental pick | "Store in PostgreSQL users table" when any equivalent store would do | Over-specification | State the property: "Persist user profile across sessions" |
+| Property instance (security) | "Use bcrypt to hash passwords"—the real requirement is a security property | Specify the property, keep the technology open | "Hash passwords with an adaptive function, work factor ≥ N"; bcrypt is one valid choice |
+| Property instance (non-security) | "Store money in a `decimal` column"—the real requirement is exactness | Specify the property, keep the technology open | "Represent monetary amounts without rounding error (no binary floating point)"; a decimal type is one valid choice |
+| Technology as requirement | "Integrate with the team's PostgreSQL", "Use Stripe", "Run on AWS GovCloud"—the specific technology is mandated by interop, compliance, or external contract | Properly constrained—name it | Name the technology as a binding constraint |
+
+**Discriminator test:** *If an implementer substituted an equivalent technology, would intent be violated?*
+
+- No → incidental; open it (naming it is over-specification)
+- Yes, because a property must hold → specify the property; the technology is an example
+- Yes, because that exact technology is mandated → specify the technology
+
+When a property has many valid instances, prefer stating the property; collapse to a named technology only when the team standardizes on one for cross-implementer consistency, or when an external contract mandates it. A binding constraint states **what the target state requires** (a property, or a mandated component), not **why one option beat another**—rationale ("bcrypt is safer than MD5") still belongs in an ADR or commit log (see Anti-Patterns: Thinking traces).
+
 ### Three-Layer Overview
 
 Complete specifications address three layers:
@@ -82,7 +101,7 @@ Complete specifications address three layers:
 | Phase / pending markers | `(Future)`, `(v2)`, `(暫定)`, `TBD`, `TODO` in spec body | Spec describes a decided target state; pending marks leave doubt about whether decisions are final | Decide now and write the state; for genuinely undecided items use Handling Uncertainty in spec-methodology, not inline markers |
 | Optional markers | `(Optional)` in spec | Either required for target state or not | Move to Non-goals or make it required |
 | Thinking traces | "Originally X, changed to Y"; "Considered A, chose B"; inline rationale ("because we chose..."); revision notes | Spec is the current target state, not a record of the journey or deliberation; rationale and history belong in commit log or ADR | Rewrite as the current decided state; remove the trace |
-| Over-specification | Algorithm details, framework choices | Constrains implementer without design benefit | Replace with observable behavior |
+| Over-specification | Algorithm details, or a technology named without a binding constraint (see Technology Choices) | Constrains implementer without design benefit | Replace with observable behavior, or state the binding property the technology must satisfy |
 | Prose narrative | "First we do X, then Y happens" | Mixes process with target state | Use declarative statements or structured formats (Context → Action → Outcome) |
 | Vague language | "Handle appropriately", "reasonable time" | Different implementers interpret differently | Use specific values or measurable criteria |
 

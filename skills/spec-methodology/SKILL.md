@@ -192,6 +192,8 @@ To be decided:
   (depends on deployment target)
 ```
 
+A technology under "Decided" must carry a binding constraint—a property the target state requires, a cross-implementer convention, or an external mandate. If the choice is incidental (any equivalent would do), rewrite it as the property and leave the technology open rather than recording an arbitrary pick. See spec-principles Technology Choices for the discriminator test.
+
 Resolve all "To be decided" items within the target scope before implementation readiness—an implementer should be able to build without clarifying questions. Items outside the current scope may remain deferred with explicit owners.
 
 #### Conflicting requirements
