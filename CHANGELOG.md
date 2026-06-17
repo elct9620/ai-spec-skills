@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.9.0...spec-v0.10.0) (2026-06-17)
+
+
+### Features
+
+* **spec:** distinguish binding tech constraints from over-specification ([7d8f509](https://github.com/elct9620/ai-spec-skills/commit/7d8f5099f09f138c6ad0fa5735fc6dfdf8c4820b))
+
 ## [0.9.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.8.0...spec-v0.9.0) (2026-05-20)
 
 
