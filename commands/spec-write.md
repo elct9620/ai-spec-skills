@@ -80,17 +80,19 @@ To select skills for writing or improving specifications, consider the following
     </condition>
     <condition if="$phase == 'Scope'">
         <step>5. write Feature list and User journeys (Context → Action → Outcome)</step>
-        <step>6. verify feature list is complete</step>
+        <step>6. for each thing the user rules out, ask which exclusion it is (contradicts intent / not covered this round / owned elsewhere) and record it under Non-goals, Out of Scope, or System boundary accordingly — never as (Future)/(v2)/a date (see spec-principles Scope Exclusions)</step>
+        <step>7. write each Out of Scope entry as the boundary the target state holds instead; only add a tracking reference after reading or globbing the target to confirm it exists, and drop the reference rather than guess a path, anchor, or issue number</step>
+        <step>8. verify feature list is complete and every exclusion states the intent it would contradict (Non-goals) or the boundary held instead (Out of Scope)</step>
     </condition>
     <condition if="$phase == 'Behavior'">
-        <step>7. write Feature behaviors and Error scenarios</step>
-        <step>8. verify Behaviors and Errors are defined and spec is implementable</step>
+        <step>9. write Feature behaviors and Error scenarios</step>
+        <step>10. verify Behaviors and Errors are defined and spec is implementable</step>
     </condition>
     <condition if="$phase == 'Refinement'">
-        <step>9. write Patterns, Contracts, and Terminology</step>
-        <step>10. verify Contracts, Terminology, and Patterns as needed</step>
+        <step>11. write Patterns, Contracts, and Terminology</step>
+        <step>12. verify Contracts, Terminology, and Patterns as needed</step>
     </condition>
-    <step>11. verify Completion Rubric of each activated skill for this phase</step>
+    <step>13. verify Completion Rubric of each activated skill for this phase</step>
     <return>completed phase with rubric verification result</return>
 </function>
 

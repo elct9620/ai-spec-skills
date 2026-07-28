@@ -86,11 +86,21 @@ When boundaries are unclear or contested during writing or review, help the user
 | Situation | Do | Don't |
 |-----------|-----|-------|
 | Unclear boundary (e.g., "what happens at MAX_STEP?") | Ask user to pick a specific value or behavior, then document it | Suggest covering all possible values |
-| Feature has many edge cases | Ask which cases matter for the target state, defer the rest to Non-goals | List all edge cases and suggest handling each |
+| Feature has many edge cases | Ask which cases matter for the target state, record the rest under Out of Scope | List all edge cases and suggest handling each |
 | User unsure about a design choice | Present 2-3 options with tradeoffs, ask user to choose one | Add all options as "configurable" |
 | Spec growing large | Suggest deferring non-core features to separate specs | Add more sections to cover everything |
 
 **Principle:** A smaller, well-defined spec is more valuable than a comprehensive but vague one. Help the user decide what is NOT in scope as quickly as possible.
+
+**Narrowing produces exclusions, and every exclusion needs a category.** Ask which one the user means before writing it down—the answer is rarely obvious from the item alone, and guessing wrong turns a deferral into a permanent refusal:
+
+| Ask | Answer | Write it as |
+|-----|--------|-------------|
+| "If someone built this, would it contradict what the system is for?" | Yes | `Non-goals`, with the contradiction stated |
+| "…or is it fine in principle, just not this round?" | Yes | `Out of Scope`, stating the boundary the system holds instead |
+| "…or does something else already handle it?" | Yes | System boundary, naming the owner |
+
+Never record a deferral as `(Future)`, `(v2)`, or a date. See spec-principles Scope Exclusions.
 
 ### Bloat Detection
 
@@ -194,7 +204,9 @@ To be decided:
 
 A technology under "Decided" must carry a binding constraint—a property the target state requires, a cross-implementer convention, or an external mandate. If the choice is incidental (any equivalent would do), rewrite it as the property and leave the technology open rather than recording an arbitrary pick. See spec-principles Technology Choices for the discriminator test.
 
-Resolve all "To be decided" items within the target scope before implementation readiness—an implementer should be able to build without clarifying questions. Items outside the current scope may remain deferred with explicit owners.
+Resolve all "To be decided" items within the target scope before implementation readiness—an implementer should be able to build without clarifying questions.
+
+"To be decided" and "Out of Scope" answer different questions and must not be used for each other. "To be decided" means the spec needs this and the answer is still missing, so it blocks implementation. "Out of Scope" means the spec has decided not to cover it, so it blocks nothing. An item that will never be answered because nobody intends to cover it belongs under Out of Scope with its tracking reference, not parked as pending forever.
 
 #### Conflicting requirements
 

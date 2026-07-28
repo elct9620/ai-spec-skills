@@ -96,6 +96,17 @@ Score based on the spec's **declared scope** — what the spec claims to cover. 
 
 Review evaluates the quality of what the spec **declares**, not what it **could** declare.
 
+Declared scope includes the spec's exclusions, and their category changes what a finding means:
+
+| Reader sees | Review treats it as | Do not |
+|---|---|---|
+| Item under `Non-goals` | A stated intent boundary; absence of behavior for it is correct | Flag it as a missing feature |
+| Item under `Out of Scope` stating the boundary held instead | Outside this spec; blocks nothing | Flag it as a phase/pending marker, or as a gap |
+| Item excluded with neither a contradicted intent nor a boundary statement | Ambiguous—readers cannot tell refusal from deferral | Assume either reading; report it as a defect to classify |
+| `Out of Scope` entry whose only content is a reference | Incomplete, and the reference may not resolve | Trust the reference; check whether the target exists and require the boundary statement |
+
+An `Out of Scope` entry becomes a defect when it carries a timeline (`in v2`, `next quarter`)—that is a phase marker—or when it points at a document, anchor, or issue that does not exist. A verified pointer to where the decision lives is not a defect.
+
 | Finding Type | Definition | Report As |
 |---|---|---|
 | Defect | Something present in the spec but incorrect, ambiguous, or dangerous | **Must Fix** |
@@ -121,7 +132,8 @@ Review evaluates the quality of what the spec **declares**, not what it **could*
 | Vague language | Ambiguous interpretation within documented scope | Must Fix | Use specific values or criteria |
 | Hidden assumptions | Works only in specific context | Suggested Fix | Make all assumptions explicit |
 | Explanatory notes | "Note: because..." appears | Must Fix | Rewrite as direct statement |
-| Phase / pending markers | "(Future)", "(v2)", TBD, TODO, 暫定, (待討論) in spec body | Must Fix | Decide now; for undecided items use Handling Uncertainty section, not inline markers |
+| Phase / pending markers | "(Future)", "(v2)", TBD, TODO, 暫定, (待討論) in spec body | Must Fix | Decide now; if the item is simply not covered, move it to Out of Scope with a tracking reference; for undecided items use Handling Uncertainty section |
+| Conflated exclusions | Non-goals mixes standing refusals with items merely not covered this round; entries carry no reason or reference | Must Fix | Split by the discriminator test (spec-principles Scope Exclusions): intent violation → Non-goals with the contradiction stated; scope edge → Out of Scope with where it is tracked; owned elsewhere → System boundary |
 | Thinking traces | "原本是 X，調整為 Y"; "Considered A, chose B"; inline rationale ("because we chose..."); revision notes | Must Fix | Rewrite as current state; move history/rationale to commit log or ADR |
 
 ## Completion Rubric
@@ -131,7 +143,7 @@ Review evaluates the quality of what the spec **declares**, not what it **could*
 | Criterion | Pass | Fail |
 |-----------|------|------|
 | Full spec read | Entire specification read and understood | Partial or skimmed reading |
-| Declared scope identified | Know what the spec claims to cover (features, boundaries, non-goals) | Evaluating against assumed scope |
+| Declared scope identified | Know what the spec claims to cover, and which exclusions are intent boundaries vs items not covered | Evaluating against assumed scope; exclusions read as one undifferentiated list |
 | Target quality level selected | Chose Minimal/Usable/Complete based on context | No target level determined |
 
 ### During Quality Assessment
@@ -141,7 +153,7 @@ Review evaluates the quality of what the spec **declares**, not what it **could*
 | All 11 items evaluated | Every rubric item scored Y or N | Items skipped or unclear |
 | Evidence for each N | Each N has specific evidence from spec | N without justification |
 | Balance Check completed | Over/under-specification assessed | Balance not checked |
-| Common Problems scanned | All 9 problem types checked | Problems check incomplete |
+| Common Problems scanned | Every problem type in the table checked | Problems check incomplete |
 
 ### After Quality Assessment
 

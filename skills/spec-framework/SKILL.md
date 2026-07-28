@@ -30,9 +30,25 @@ Provides context for judgment calls:
 | Users | Who uses it, what they accomplish | ✓ |
 | Impacts | What behavior changes indicate success (drives priority) | |
 | Success criteria | What defines "done" and "working" | |
-| Non-goals | What is explicitly out of scope | |
+| Non-goals | What the system deliberately is not; building it contradicts Purpose or Users | |
+| Out of Scope | What this specification does not cover, though it is compatible with intent | |
 
 Without intent, implementers make technically correct but misaligned decisions.
+
+**Non-goals vs Out of Scope:** Both describe things that will not be built now, but they instruct the reader differently—a Non-goal tells a contributor to stop, an Out of Scope item tells them to seek a scope decision. Keep them as separate sections so the section heading itself carries the instruction; a category column inside one list gets skimmed past. Each Out of Scope entry states the boundary the target state holds instead; a tracking reference may follow it when the target is confirmed to exist, and never a timeline. See spec-principles Scope Exclusions for the discriminator test.
+
+```
+## Non-goals
+Building these would contradict what this system is:
+- No web UI — this tool composes into shell pipelines
+
+## Out of Scope
+Compatible with intent; this specification does not cover them:
+- Multi-language UI — every message ships in one language and is never resolved per locale
+- Batch import — creation accepts one record per request; see ROADMAP.md#import
+```
+
+Work owned by another system belongs to the Design layer's System boundary, not to either section.
 
 ### Design Layer
 

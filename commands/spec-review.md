@@ -30,8 +30,9 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>3. identify the structure and sections present</step>
     <step>4. scan SPEC.md for document links matching pattern [text](docs/...) or relative .md paths</step>
     <step>5. for each linked document: record the link and attempt to read the file if it exists</step>
-    <step>6. identify declared scope: what features and boundaries the spec claims to cover, and any explicit non-goals</step>
-    <return>parsed specification content, structure overview, declared scope summary, and linked documents map (path → content or "missing")</return>
+    <step>6. identify declared scope: what features and boundaries the spec claims to cover</step>
+    <step>7. classify each exclusion the spec states: intent boundary (Non-goals), not covered by this spec (Out of Scope), or owned elsewhere (System boundary); mark exclusions that carry no reason and no tracking reference as unclassified</step>
+    <return>parsed specification content, structure overview, declared scope summary with classified exclusions, and linked documents map (path → content or "missing")</return>
 </function>
 
 <function name="determine-target">
@@ -108,8 +109,11 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>1. check for Must Fix problems within declared scope: Missing intent, Over-specification, Vague language, Explanatory notes, Phase/pending markers (Future/v2/TBD/TODO/暫定), Thinking traces (revision marks, "considered X chose Y", "originally A changed to B", inline rationale)</step>
     <step>2. check for Suggested Fix problems: Undefined scenarios that would cause crash/data-loss/security-breach for documented features, Hidden assumptions</step>
     <step>3. check for Note-level items only if target level requires them: Inconsistent patterns, Inconsistent terminology, Undefined scenarios (detail-level)</step>
-    <step>4. for each finding: cite the specific text in the spec that evidences the problem</step>
-    <step>5. do NOT flag missing content that is outside the spec's declared scope</step>
+    <step>4. check for conflated exclusions: items under Non-goals that do not contradict intent, exclusions stating neither a contradicted intent nor the boundary held instead, or deferrals recorded as (Future)/(v2)/a date — report as Must Fix with the category the discriminator test selects</step>
+    <step>5. for each exclusion citing a document, anchor, or issue — including plain-text references outside markdown link syntax — check whether the target exists; report unresolvable references as Must Fix</step>
+    <step>6. for each finding: cite the specific text in the spec that evidences the problem</step>
+    <step>7. do NOT flag missing content that is outside the spec's declared scope</step>
+    <step>8. do NOT flag an Out of Scope entry as a phase/pending marker when it states the boundary held instead, or points to where the decision is tracked rather than when it will happen</step>
     <return>list of identified problems classified by severity (Must Fix / Suggested Fix / Note) with evidence citations</return>
 </function>
 
