@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.10.0...spec-v0.11.0) (2026-07-28)
+
+
+### Features
+
+* **spec:** separate intent boundaries from uncovered scope ([02604fb](https://github.com/elct9620/ai-spec-skills/commit/02604fb9703ed634fad6d1b103d1ddf12bdee1b3))
+
 ## [0.10.0](https://github.com/elct9620/ai-spec-skills/compare/spec-v0.9.0...spec-v0.10.0) (2026-06-17)
 
 
